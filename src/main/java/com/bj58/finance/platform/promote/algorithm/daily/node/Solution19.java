@@ -28,10 +28,6 @@ public class Solution19 {
         if(n == 0 || head == null){
             return head;
         }
-        //head.next == null n为1的情况，直接返回null
-        if(head.next == null && n == 1){
-            return null;
-        }
         //先行指针
         ListNode quickNode = head;
         //后行指针
