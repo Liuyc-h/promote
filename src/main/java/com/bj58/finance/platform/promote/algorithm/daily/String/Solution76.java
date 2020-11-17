@@ -21,14 +21,18 @@ import java.util.Map;
  * */
 public class Solution76 {
 
+    //s的字符和出现的频率映射
+    private Map<Character,Integer> sMap = new HashMap<>();
+    //t的字符和出现的频率映射
+    private Map<Character,Integer> tMap = new HashMap<>();
+
     public String minWindow(String s, String t){
-        //s的字符和出现的频率映射
-        Map<Character,Integer> sMap = new HashMap<>();
-        //t的字符和出现的频率映射
-        Map<Character,Integer> tMap = new HashMap<>();
-        if( s == null || t == null || s.length() == 0 || t.length() == 0){
+
+        if( s == null || t == null || s.length() == 0
+                || t.length() == 0 || s.length() < t.length()){
             return "";
         }
+
         //t的字符映射
         for(int i = 0 ; i < t.length(); i++ ){
             int count = tMap.getOrDefault(t.charAt(i),0) + 1;
@@ -40,6 +44,12 @@ public class Solution76 {
         int right = 0;
         //右节点
         int left = 0;
+        //左边界
+        int leftBound = 0;
+        //右边界
+        int rightBound = 0;
+        //先定义一个巨长得长度，后面好比较
+        int length = Integer.MAX_VALUE;
 
         while(right < sLength){
 
@@ -47,13 +57,46 @@ public class Solution76 {
             int value = sMap.getOrDefault(key,0) + 1;
             sMap.put(key,value);
 
-            if(){
+            while(check() && left <= right){
 
+                if(length > right - left + 1){
+                    leftBound = left;
+                    rightBound = right;
+
+                    length = right -left + 1;
+                }
+                int count = sMap.getOrDefault(s.charAt(left),0) - 1;
+                sMap.put(s.charAt(left),count);
+                left ++;
             }
-
             right ++;
-
-
         }
+        return length == (rightBound - leftBound + 1)
+                ? s.substring(leftBound,rightBound + 1) : "";
+    }
+    /**
+     *  校验下是否触发调用
+     * **/
+    private Boolean check(){
+
+        for(Map.Entry entry : tMap.entrySet()){
+
+            char key = (char)entry.getKey();
+            int value = (int)entry.getValue();
+
+            int sCount = sMap.getOrDefault(key,0);
+            if(sCount < value){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public static void main(String[] args) {
+        String s = "a";
+        String t = "b";
+
+        System.out.println(new Solution76().minWindow(s,t));
     }
 }
