@@ -16,6 +16,10 @@ public class ListNode {
         this.value = value;
         next = null;
     }
+    public ListNode(int value,ListNode next){
+        this.value = value;
+        this.next = next;
+    }
 
     /*********************************   hash 方式确定环 start ***********************************/
     /**
