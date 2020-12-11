@@ -84,11 +84,40 @@ public class Solution5 {
     }
 
 
+    public String longestPalindrome1(String s){
+
+        if(s == null || s.length() == 0){
+            return s;
+        }
+
+        int length = s.length();
+
+        int startIndex = Integer.MAX_VALUE;
+        int endIndex = 0;
+        for(int i = 0; i < 2 *length - 1; i++){
+            int left = i / 2;
+            int right = i / 2 + i % 2;
+            while(left >= 0 && right < length && s.charAt(left) == s.charAt(right)){
+
+                if(right -left > endIndex - startIndex){
+                    startIndex = left;
+                    endIndex = right;
+                }
+                left --;
+                right ++;
+            }
+        }
+        return s.substring(startIndex,endIndex + 1);
+
+
+    }
+
+
     public static void main(String[] args) {
 
         String s = "aba";
 
-        System.out.println(new Solution5().longestPalindrome(s));
+        System.out.println(new Solution5().longestPalindrome1(s));
 
     }
 }
