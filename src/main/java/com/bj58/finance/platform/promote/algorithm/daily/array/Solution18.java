@@ -97,6 +97,61 @@ public class Solution18 {
 //        int[] array = new int[]{-1,0,1,2,-1,-4};
         int[] array = new int[]{0,-1,-3,5,-5};
 
-        System.out.println(JSONObject.toJSONString(new Solution18().fourSum(array,1)));
+        System.out.println(JSONObject.toJSONString(new Solution18().fourSum1(array,1)));
+    }
+    /**
+     *  先排序，固定两个节点，其余得用双指针
+     *  时间复杂度 O（n3）
+     * **/
+    public List<List<Integer>> fourSum1(int[] nums, int target){
+
+        List<List<Integer>> resultList = new ArrayList<>();
+
+        if(nums == null || nums.length < 4){
+            return resultList;
+        }
+        if(nums.length == 4 && nums[0] + nums[1] + nums[3] + nums[2] == target){
+            List<Integer> list = Arrays.asList(nums[0],nums[1],nums[2],nums[3]);
+            resultList.add(list);
+            return resultList;
+        }
+        //先排序
+        Arrays.sort(nums);
+        //数组长度
+        int length = nums.length;
+        for(int i =0; i < length - 3;i++){
+            if(i > 0 && nums[i] == nums[i -1]){
+                continue;
+            }
+            for(int j = i+ 1; j < length - 2;j++){
+                if( j > i + 1 && nums[j] == nums[j - 1] ){
+                    continue;
+                }
+                //左边界，右边界
+                int left = j + 1;
+                int right = length - 1;
+
+                while(left < right){
+                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    if(sum == target){
+                        List<Integer> list = Arrays.asList(nums[i] , nums[j] , nums[left], nums[right]);
+                        resultList.add(list);
+                        while(left < right && nums[left] == nums[left + 1]){
+                            left ++;
+                        }
+                        while(left < right && nums[right] == nums[right - 1]){
+                            right --;
+                        }
+                        left ++;
+                        right --;
+                    }else if(sum > target){
+                        right --;
+                    }else{
+                        left ++;
+                    }
+                }
+            }
+        }
+        return resultList;
     }
 }

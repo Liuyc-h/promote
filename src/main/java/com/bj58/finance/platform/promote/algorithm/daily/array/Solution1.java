@@ -27,6 +27,8 @@ public class Solution1 {
 
     /**
      *   hash只能算出一组
+     *
+     *   O（n)的时间复杂度，O（n）的空间复杂度
      * */
     public int[] twoSum(int[] nums, int target){
 

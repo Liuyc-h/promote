@@ -90,9 +90,67 @@ public class Solution15 {
         int[] array = new int[]{-1, 0, 1, 2, -1, -4};
 
 
-        List<List<Integer>> list = new Solution15().threeSum(array);
+        List<List<Integer>> list = new Solution15().threeSum1(array);
 
         System.out.println(JSONObject.toJSONString(list));
-
     }
+
+    /**
+     *先进行排序，然后固定一个节点
+     * 双指针从两端进行遍历
+     * 空间复杂度为O(1)
+     * 时间复杂度为O（n2）
+     *
+     * **/
+    public List<List<Integer>> threeSum1(int[] nums){
+        //先定义一个返回list
+        List<List<Integer>> resultList = new ArrayList<>();
+        if(nums == null || nums.length < 3){
+            return resultList;
+        }
+        //先进行排序
+        Arrays.sort(nums);
+        //首节点大于0，没结果了
+        if(nums[0] > 0){
+            return resultList;
+        }
+        int length = nums.length;
+
+        for(int i = 0; i < length - 2; i++){
+            //因为不能重复，所以当前值等于前一个值得时候，跳出不执行
+            if(i > 0 && nums[i] == nums[i - 1]){
+                continue;
+            }
+            //双指针滑动
+            //左节点
+            int left = i + 1;
+            //右节点
+            int right = length - 1;
+
+            while(left < right){
+
+                int sum = nums[i] + nums[left] + nums[right];
+                if(sum == 0){
+                    List<Integer> list = Arrays.asList(nums[i],nums[left],nums[right]);
+                    resultList.add(list);
+                    while(left < right && nums[left] == nums[left + 1]){
+                        left ++;
+                    }
+                    while(left < right && nums[right] ==  nums[right - 1]){
+                        right --;
+                    }
+                    left ++;
+                    right --;
+                }else if(sum > 0){
+                    right --;
+                }else{
+                    left ++;
+                }
+
+            }
+
+        }
+        return resultList;
+    }
+
 }

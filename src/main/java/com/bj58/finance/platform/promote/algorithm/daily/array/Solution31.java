@@ -1,5 +1,7 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  *  实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
  *
@@ -22,7 +24,8 @@ public class Solution31 {
 
         int length = nums.length;
         int i = length - 2;
-        //找出最右边的一个出现升序的元素
+        //从右向左遍历，先找出第一个出现降序得。也就是第一个出现  nums[i] >= nums[i + 1]
+        // 也就是从
         while(i >= 0 && nums[i] >= nums[i + 1]){
             i--;
         }
@@ -34,6 +37,7 @@ public class Solution31 {
             }
             swap(nums,i,j);
         }
+        //整体翻转
         reverseArray(nums,i + 1,length - 1);
     }
     //交换元素
@@ -57,6 +61,10 @@ public class Solution31 {
         int[] array = new int[]{1,2,2,1};
         new Solution31().nextPermutation(array);
 
-        System.out.println(array);
+        System.out.println(JSONObject.toJSONString(array));
+    }
+
+    public void nextPermutation1(int[] nums){
+
     }
 }

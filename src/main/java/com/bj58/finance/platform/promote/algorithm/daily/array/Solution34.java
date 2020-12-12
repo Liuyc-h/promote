@@ -38,7 +38,7 @@ import com.alibaba.fastjson.JSONObject;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * **/
 public class Solution34 {
-
+    //二分查找
     public int[] searchRange(int[] nums, int target) {
 
         if(nums == null || nums.length <= 0){

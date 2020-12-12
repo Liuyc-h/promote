@@ -8,6 +8,9 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *  二叉树得前序遍历
+ * **/
 public class Solution144 {
 
     public List<Integer> preorderTraversal(TreeNode root) {

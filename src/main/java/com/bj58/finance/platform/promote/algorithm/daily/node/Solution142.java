@@ -98,4 +98,83 @@ public class Solution142 {
         }
         return null;
     }
+
+
+    public ListNode detectCycle1(ListNode head) {
+        //此时无环
+        if (head == null || head.next == null) {
+            return null;
+        }
+        //快指针
+        ListNode quickNode = head;
+        //慢指针
+        ListNode slowNode = head;
+        //是否有环的标志
+        Boolean isHavCircle = false;
+
+        while(quickNode != null && slowNode != null){
+
+            if(quickNode.next == null){
+                break;
+            }
+            quickNode = quickNode.next.next;
+            slowNode = slowNode.next;
+            if(quickNode == null || slowNode == null){
+                break;
+            }
+            if(quickNode == slowNode){
+                isHavCircle = true;
+                break;
+            }
+        }
+        if(!isHavCircle){
+            return null;
+        }
+        //将快指针重新赋回源节点
+        quickNode = head;
+
+        while(quickNode != slowNode){
+            quickNode = quickNode.next;
+            slowNode = slowNode.next;
+            if(slowNode == quickNode){
+                return slowNode;
+            }
+        }
+        return slowNode;
+
+    }
+    /**
+     *  判断是否有环
+     * **/
+    private Boolean havCircle(ListNode quickNode ,ListNode slowNode){
+
+        while(quickNode != null && slowNode != null){
+
+            if(quickNode.next == null){
+                return false;
+            }
+            quickNode = quickNode.next.next;
+            slowNode = slowNode.next;
+            if(quickNode == null || slowNode == null){
+                return false;
+            }
+            if(quickNode == slowNode){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        ListNode node1 = new ListNode(0);
+
+        ListNode node2 = new ListNode(1);
+
+        node1.next = node2;
+        node2.next = node1;
+
+        System.out.println(new Solution142().detectCycle1(node1));
+
+
+    }
 }
