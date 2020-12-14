@@ -13,6 +13,9 @@ import java.util.List;
  * **/
 public class Solution144 {
 
+    /***
+     *  根左右
+     * */
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         if (root == null) {
@@ -105,6 +108,28 @@ public class Solution144 {
         root.right = new TreeNode(2);
         root.right.left = new TreeNode(3);
 
-        System.out.println(JSONObject.toJSONString(new Solution144().preorderTraversal1(root)));
+        System.out.println(JSONObject.toJSONString(new Solution144().preorderTraversal2(root)));
     }
+
+    public List<Integer> preorderTraversal2(TreeNode root){
+        List<Integer> resultList = new ArrayList<>();
+
+        if(root == null){
+            return resultList;
+        }
+        //
+        Deque<TreeNode> deque = new LinkedList<>();
+        TreeNode flowNode = root;
+        while(!deque.isEmpty() || flowNode != null){
+            while(flowNode != null){
+                resultList.add(flowNode.val);
+                deque.push(flowNode);
+                flowNode = flowNode.left;
+            }
+            TreeNode treeNode = deque.poll();
+            flowNode = treeNode.right;
+        }
+        return resultList;
+    }
+
 }
