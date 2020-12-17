@@ -40,7 +40,12 @@ package com.bj58.finance.platform.promote.algorithm.classification.双指针;
  *
  * **/
 public class Solution11 {
-
+    /**
+     *  暴力解法
+     *  这种解法一般时间复杂度都是n的平方。不提倡
+     *  双层遍历即可，
+     *  一个从左边遍历，一个从右边遍历
+     * **/
     public int maxArea(int[] height) {
 
         if(height == null || height.length <= 1){
@@ -65,6 +70,18 @@ public class Solution11 {
     }
     /**
      *  双指针
+     *  这道题的关键在于，怎么在用双指针的情况下遍历一遍就可以得到最优解，并且不漏情况
+     *
+     * 左节点left从0开始，右节点right从length - 1开始
+     *  分三种情况
+     *   1、height[left] > height[right]
+     *      此时左节点大于右节点，如果挪动左节点，得到的值只能是小于等于 当前的值的
+     *      所以挪动右节点，即right --，此时才有可能得到大于当前值的
+     *   2、height[left] < height[right]
+     *      此时左节点小于右节点，如果挪动右节点，得到的值只能是小于等于 当前的值的
+     *      所以挪动左节点，即left++，此时才有可能得到大于当前值的
+     *   3、height[left] = height[right]
+     *      此时挪动那个节点都无所谓
      * */
     public int maxArea1(int[] height) {
 

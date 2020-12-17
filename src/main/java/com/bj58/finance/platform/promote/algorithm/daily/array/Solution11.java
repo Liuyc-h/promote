@@ -41,6 +41,9 @@ package com.bj58.finance.platform.promote.algorithm.daily.array;
  * **/
 public class Solution11 {
 
+    /**
+     *  暴力解法，很好想，不提倡
+     * **/
     public int maxArea(int[] height) {
 
         if(height == null || height.length <= 1){
@@ -65,6 +68,11 @@ public class Solution11 {
     }
     /**
      *  双指针
+     *  解题思路
+     *  这道题的关键在于使用双指针，怎么能不漏遍历结果
+     *
+     *  我们从左右两端开始遍历，left  right
+     *  有两种情况
      * */
     public int maxArea1(int[] height) {
 
