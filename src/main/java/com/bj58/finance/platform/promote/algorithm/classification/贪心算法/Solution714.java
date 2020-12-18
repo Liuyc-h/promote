@@ -11,7 +11,7 @@ package com.bj58.finance.platform.promote.algorithm.classification.贪心算法;
  *
  * 示例 1:
  *
- * 输入: prices = [1, 3, 2, 8, 4, 9], fee = 2
+ * 输入: prices = [1, 3, 2, 8, 6, 9], fee = 2
  * 输出: 8
  * 解释: 能够达到的最大利润:
  * 在此处买入 prices[0] = 1
@@ -33,6 +33,17 @@ package com.bj58.finance.platform.promote.algorithm.classification.贪心算法;
 public class Solution714 {
     /**
      *  贪心算法
+     *
+     *  本题的思路
+     *  从0开始，记录买入股票所花的钱 buy = prices[0] + fee
+     *
+     *  从1开始遍历数组prices[i]
+     *     如果  prices[i] + fee < buy,证明此时买入的代价更低，则更新buy
+     *
+     *     如果 prices[i] > buy,则证明此时卖出能赚钱，则卖出
+     *       buy更新为prices[i],如果下一个数大于prices[i],则可以直接算收益，相当于在i天啥也没做
+     *     如果 buy - fee <=prices[i] <= buy
+     *        此时不赚钱，不能抛出
      * **/
     public int maxProfit(int[] prices, int fee) {
         //收益
@@ -43,6 +54,7 @@ public class Solution714 {
         int buy = prices[0] + fee;
         for(int i = 1; i< length; i++){
             //如果遍历到当前买入的值 + fee 小于buy的，只需更新buy即可
+            //此时  buy = prices[i - 1]，price[i] >= price[i - 1] - fee,此时买入会赔，所以此时不做买入操作
             if(prices[i] + fee < buy){
                 buy = prices[i] + fee;
             }else if(prices[i] > buy){//如果当前的钱大于buy的话，算收益
@@ -58,7 +70,7 @@ public class Solution714 {
 
     public static void main(String[] args) {
 
-        int[] prices = new int[]{1, 3, 2, 8, 4, 9};
+        int[] prices = new int[]{1, 3, 2, 8, 6, 9};
 
         System.out.println(new Solution714().maxProfit(prices,2));
 

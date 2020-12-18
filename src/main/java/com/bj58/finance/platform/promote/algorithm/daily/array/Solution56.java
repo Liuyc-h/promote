@@ -31,6 +31,11 @@ import java.util.Comparator;
  * */
 public class Solution56 {
 
+    /**
+     *  先进行排序
+     *  然后找出结果数组的长度
+     *
+     * **/
     public int[][] merge(int[][] intervals) {
         if(intervals == null || intervals.length <= 1){
             return intervals;

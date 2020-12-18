@@ -1,4 +1,4 @@
-package com.bj58.finance.platform.promote.algorithm.daily.array;
+package com.bj58.finance.platform.promote.algorithm.classification.贪心算法;
 
 /***
  *你将会获得一系列视频片段，这些片段来自于一项持续时长为 T 秒的体育赛事。这些片段可能有所重叠，也可能长度不一。
