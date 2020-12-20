@@ -50,5 +50,35 @@ public class Solution4_寻找两个正序数组的中位数 {
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
+        int[] mergeArray = new int[nums1.length + nums2.length];
+        //第一个数组的滑动索引
+        int firstSlideIndex= 0;
+        //第二个数组的滑动索引
+        int secondSlideIndex = 0;
+        for(int i = 0; i < (nums1.length + nums2.length); i++){
+
+            if(nums1[firstSlideIndex] <= nums2[secondSlideIndex] && firstSlideIndex < nums1.length){
+                mergeArray[i] = nums1[firstSlideIndex];
+                firstSlideIndex ++;
+            }else if(secondSlideIndex < nums2.length){
+                mergeArray[i] = nums2[secondSlideIndex];
+                secondSlideIndex ++;
+            }
+           
+
+        }
+        int length = mergeArray.length;
+        if(length % 2 != 0){
+            return mergeArray[length / 2 ];
+        }else{
+            return (mergeArray[length / 2 ] + mergeArray[length / 2 - 1 ])/2;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        int[] nums1 = new int[]{1,3};
+        int[] nums2 = new int[]{2};
+        System.out.println(new Solution4_寻找两个正序数组的中位数().findMedianSortedArrays(nums1,nums2));
     }
 }
