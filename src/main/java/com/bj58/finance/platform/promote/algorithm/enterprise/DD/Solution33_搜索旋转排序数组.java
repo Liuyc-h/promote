@@ -38,7 +38,51 @@ public class Solution33_搜索旋转排序数组 {
 
     public int search(int[] nums, int target) {
 
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        for(int i =0; i < nums.length; i++){
+            if(nums[i] == target){
+                return i;
+            }
+        }
+        return -1;
+    }
 
 
+    public int search1(int[] nums, int target) {
+
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        int length = nums.length;
+        if (length == 1) {
+            return nums[0] == target ? 0 : -1;
+        }
+        int l = 0,r = length -1;
+
+        while(l <= r){
+
+            int middle = (l + r) / 2;
+
+            if(nums[middle] == target){
+                return middle;
+            }
+            if(nums[0] <= nums[middle]){
+
+                if(nums[0] <= target && target < nums[middle]){
+                    r = middle - 1;
+                }else{
+                    l = middle + 1;
+                }
+            }else{
+                if(nums[middle] < target && nums[length - 1] >= target){
+                    l = middle + 1;
+                }else{
+                    r = middle - 1;
+                }
+            }
+        }
+        return -1;
     }
 }
