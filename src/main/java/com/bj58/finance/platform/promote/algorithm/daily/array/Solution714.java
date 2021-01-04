@@ -63,4 +63,24 @@ public class Solution714 {
         System.out.println(new Solution714().maxProfit(prices,2));
 
     }
+
+
+    public int maxProfit1(int[] prices, int fee){
+        if(prices == null || prices.length <= 1){
+            return 0;
+        }
+        int length = prices.length;//
+        int maxPrifit = 0;
+        //定义一个买入费用
+        int buy = prices[0] + fee;
+        for(int i = 1; i< length; i++){
+            if(prices[i]  < buy - fee){
+                buy = prices[i] + fee;
+            }else if(prices[i] > buy){
+                maxPrifit = maxPrifit + prices[i] - buy;
+                buy = prices[i];
+            }
+        }
+        return maxPrifit;
+    }
 }
