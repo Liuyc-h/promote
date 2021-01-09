@@ -1,9 +1,7 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-import com.alibaba.fastjson.JSONObject;
-
-/**
- *  给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
+/***
+ * 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
  *
  * 如果数组中不存在目标值 target，返回 [-1, -1]。
  *
@@ -36,37 +34,39 @@ import com.alibaba.fastjson.JSONObject;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- * **/
-public class Solution34 {
-    //二分查找
-    public int[] searchRange(int[] nums, int target) {
+ *
+ *
+ * ***/
+public class Solution34_在排序数组中查找元素的第一个和最后一个位置 {
 
-        if(nums == null || nums.length <= 0){
+    public int[] searchRange(int[] nums, int target) {
+        //特殊情况处理
+        if(nums == null || nums.length == 0){
             return new int[]{-1,-1};
         }
-        //左起点
-        int left  = 0;
-        //右起点
-        int right = nums.length - 1;
-        //起始位置
+        //数组的长度
+        int length = nums.length;
+        //两边长度
+        int left = 0;
+        int right = length - 1;
+        //开始结束索引
         int startIndex = -1;
-        //结束位置
         int endIndex = -1;
-        //二分查找
-        while(left <=  right){
-            //中间位置
+
+        while(left <= right){
+
             int middle = (left + right) / 2;
-
+            //nums[middle] > target,重新赋值右边界
             if(nums[middle] > target){
-                right = middle - 1;
-                continue;
+               right = middle - 1;
+               continue;
             }
-
+            //nums[middle] < target,冲新赋值右边界
             if(nums[middle] < target){
                 left = middle + 1;
                 continue;
             }
-
+            //
             endIndex = Math.max(middle,endIndex);
             if(startIndex == -1){
                 startIndex = middle;
@@ -114,12 +114,5 @@ public class Solution34 {
             }
         }
         return ans;
-    }
-
-    public static void main(String[] args) {
-        int[] array = new int[]{8,8,8,8,8,10};
-        int target = 8;
-
-        System.out.println(JSONObject.toJSONString(new Solution34().searchRange(array,target)));
     }
 }

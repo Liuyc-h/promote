@@ -1,8 +1,5 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,35 +20,24 @@ import java.util.Map;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
  * */
-public class Solution1 {
-
+public class Solution1_两数之和 {
     /**
-     *   hash只能算出一组
+     *  没啥要讲的，这个很好写
      *
-     *   O（n)的时间复杂度，O（n）的空间复杂度
-     * */
+     * **/
     public int[] twoSum(int[] nums, int target){
-
+        if(nums == null || nums.length <= 1){
+            return null;
+        }
+        //集合，key为值，value为下标索引
         Map<Integer,Integer> indexMap = new HashMap<>();
-
-        for(int i = 0; i< nums.length;i++){
-            int anotherInt = target - nums[i];
-            if(indexMap.containsKey(anotherInt)){
-                return new int[]{i,indexMap.get(anotherInt)};
+        for(int i =0; i< nums.length; i++){
+            int another = target - nums[i];
+            if(indexMap.containsKey(another)){
+                return new int[]{indexMap.get(another),i};
             }
             indexMap.put(nums[i],i);
         }
-        throw new IllegalArgumentException("NO TWO DATA SUM IS TARGET!");
+        return null;
     }
-
-    public static void main(String[] args) throws JsonProcessingException {
-
-        int[] array = new int[]{2, 7, 11, 15};
-
-        int[] arrayIndex = new Solution1().twoSum(array,9);
-
-        System.out.println(JSONObject.toJSONString(arrayIndex));
-
-    }
-
 }
