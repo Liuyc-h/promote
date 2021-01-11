@@ -1,10 +1,9 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 
-/**
- *  给定一个 n × n 的二维矩阵表示一个图像。
+/***
+ *给定一个 n × n 的二维矩阵表示一个图像。
  *
  * 将图像顺时针旋转 90 度。
  *
@@ -48,33 +47,41 @@ import org.springframework.http.converter.json.GsonBuilderUtils;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/rotate-image
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
+ *
  * **/
-public class Solution48 {
+public class Solution48_旋转图像 {
 
     public void rotate(int[][] matrix) {
 
-        //n * n矩阵，所以长度和高度都是n
+        if(matrix == null || matrix.length <= 1){
+            return;
+        }
+        //数组的大小   n * n
         int length = matrix.length;
-        //左边界
-        int left = 0;
-        //右边界
+        //上下指针
+        int down = 0;
+        int top = length - 1;
+        //左右指针
         int right = length - 1;
-        //原横坐标和纵坐标互换，原纵坐标和新横坐标相加等于length - 1
-        while(left < right){
+        int left = 0;
 
-            for(int i = left; i < right; i++){
+        while(down < top){
 
-                //找出四个需要互换的坐标
-                int firstChange = matrix[left][i] ;
-                int secondChange =   matrix[i][length - 1 - left];
-                int thirdChange = matrix[length - 1- left][length - 1 - i];
-                int fourChange = matrix[length - 1 - i ][left];
-
-                matrix[left][i] = fourChange;
-                matrix[i][length - 1 - left] = firstChange;
-                matrix[length - 1- left][length - 1 - i] = secondChange;
-                matrix[length - 1 - i ][left] = thirdChange;
+            for( int i = left; i< right; i++){
+                //需要交换的四个数据
+                int first = matrix[down][i];
+                int second = matrix[i][top];
+                int third = matrix[top][length - 1 - i];
+                int four = matrix[length - 1 - i][down];
+                //进行交换
+                matrix[down][i] = four;
+                matrix[i][top] = first;
+                matrix[top][length - 1 - i] = second;
+                matrix[length - 1 - i][down] = third;
             }
+            down ++;
+            top --;
             left ++;
             right --;
         }
@@ -84,7 +91,7 @@ public class Solution48 {
 
         int[][] array = new int[][]{{1,2,3},{4,5,6},{7,8,9}};
 
-        new Solution48().rotate(array);
+        new Solution48_旋转图像().rotate(array);
         System.out.println(JSONObject.toJSONString(array));
 
 
