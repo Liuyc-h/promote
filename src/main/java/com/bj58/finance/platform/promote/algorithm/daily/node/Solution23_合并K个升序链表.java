@@ -3,7 +3,7 @@ package com.bj58.finance.platform.promote.algorithm.daily.node;
 import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
 
 /**
- *  给你一个链表数组，每个链表都已经按升序排列。
+ * 给你一个链表数组，每个链表都已经按升序排列。
  *
  * 请你将所有链表合并到一个升序链表中，返回合并后的链表。
  *
@@ -44,49 +44,41 @@ import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
  * 链接：https://leetcode-cn.com/problems/merge-k-sorted-lists
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * **/
-public class Solution23 {
-
+public class Solution23_合并K个升序链表 {
+    //分治法
     public ListNode mergeKLists(ListNode[] lists) {
-        //特殊情况特殊处理
+        //特殊情况处理
         if(lists == null || lists.length == 0){
             return null;
         }
-        //数组长度
+        //数组的长度
         int length = lists.length;
-
-        return mergeCommonPart(lists,0,length - 1);
+        return mergeCommPrefix(lists,0,length - 1);
     }
     /**
      *  公共部分
      * **/
-    private ListNode mergeCommonPart(ListNode[] lists,int start,int end){
+    private ListNode mergeCommPrefix(ListNode[] lists,int start,int end){
         if(start == end){
             return lists[start];
-        }else{
-            int mid = (end - start) / 2 + start;
-            ListNode lcpLeft = mergeCommonPart(lists, start, mid);
-            ListNode lcpRight = mergeCommonPart(lists, mid + 1, end);
-            if(lcpLeft == null || lcpRight == null){
-                return merge(lcpRight,lcpLeft);
-            }
-            if(lcpLeft.value > lcpRight.value){
-                return merge(lcpRight,lcpLeft);
-            }
-            return merge(lcpLeft, lcpRight);
         }
+        int middle = (start + end ) / 2;
+        ListNode leftNode = mergeCommPrefix(lists,start,middle);
+        ListNode rightNode = mergeCommPrefix(lists,middle + 1,end);
+        if(leftNode == null ){
+            return rightNode;
+        }
+        if(rightNode == null){
+            return leftNode;
+        }
+        if(leftNode.value > rightNode.value){
+            return mergeNode(rightNode,leftNode);
+        }
+        return mergeNode(leftNode,rightNode);
     }
 
-    /**
-     *  合并有序链表
-     * ***/
-    private ListNode merge(ListNode first,ListNode second){
+    private ListNode mergeNode(ListNode first,ListNode second){
 
-        if(first == null){
-            return second;
-        }
-        if(second == null){
-            return first;
-        }
         ListNode resultNode = first;
 
         while(second != null){
@@ -94,15 +86,15 @@ public class Solution23 {
             if(first.next == null){
                 first.next = second;
                 return resultNode;
-            }else if(first.next.value >= second.value){
-                //先把节点独立出来
-                ListNode newNode = second;
-                //second指向下一个节点
+            }else if(first.next.value > second.value){
+
+                ListNode node = second;
                 second = second.next;
-                //first的下一个节点
+                node.next = null;
+
                 ListNode next = first.next;
-                first.next = newNode;
-                newNode.next = next;
+                first.next = node;
+                node.next = next;
             }
             first = first.next;
         }
@@ -116,10 +108,9 @@ public class Solution23 {
         ListNode node2 = ListNode.initListNode(new int[]{1,2,3,5,6});
         ListNode node3 = ListNode.initListNode(new int[]{2,5,7,9});
 
-        ListNode[] array = new ListNode[2];
+        ListNode[] array = new ListNode[]{node1,node2,node3};
 
-        System.out.println(new Solution23().mergeKLists(array));
+        System.out.println(new Solution23_合并K个升序链表().mergeKLists(array));
 
     }
-
 }

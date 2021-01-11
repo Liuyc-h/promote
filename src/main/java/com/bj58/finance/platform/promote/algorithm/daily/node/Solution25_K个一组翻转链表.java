@@ -2,9 +2,9 @@ package com.bj58.finance.platform.promote.algorithm.daily.node;
 
 import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
 
-
 /**
- *  给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
+ *
+ * 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
  *
  * k 是一个正整数，它的值小于或等于链表的长度。
  *
@@ -25,72 +25,58 @@ import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
  * 说明：
  *
  * 你的算法只能使用常数的额外空间。
- * 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+ * 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交
  *
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/reverse-nodes-in-k-group
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- * */
-public class Solution25 {
+ * **/
+public class Solution25_K个一组翻转链表 {
 
-    public ListNode reverseKGroup(ListNode head, int k){
-
+    public ListNode reverseKGroup(ListNode head, int k) {
+        //特殊情况处理
         if(head == null || head.next == null){
             return head;
         }
-        //定义一个前驱节点
+        //虚节点
         ListNode dummy = new ListNode(0);
+        //赋值
         dummy.next = head;
-        //当前运动的链表节点
         ListNode curr = dummy;
-        //上一次反转后的链表节点
-        ListNode pre = dummy;
+        ListNode prev = dummy;
 
-        while(curr.next != null){
-            //先往后走k步
-            for(int i = 0 ; i< k ; i++){
-                //如果为null，跳出
-                if(curr == null){
-                    break;
-                }
+        while(curr != null){
+            //走出k步
+            for(int i = 0; i< k && curr != null;i++ ){
                 curr = curr.next;
             }
-            //curr为null，就跳出外部循环
             if(curr == null){
                 break;
             }
-            //本次翻转的开始节点
-            ListNode currStart = pre.next;
-            //下次翻转开始的节点
+            //当前的起始点
+            ListNode currStart = prev.next;
+            //下一次的起始点
             ListNode nextStart = curr.next;
-            //curr.next置null，把本次需要翻转的链表单独摘出来
+            //断开节点
             curr.next = null;
             //翻转链表
-            ListNode reverseNode = this.reverseNode(currStart);
-            //pre链表赋值为反转后的链表
-            pre.next = reverseNode;
+            ListNode reverseNode = reverseNode(currStart);
+            prev.next = reverseNode;
 
-            //下一次循环的链表设置
             currStart.next = nextStart;
-            pre= currStart;
+            prev = currStart;
             curr = currStart;
         }
         return dummy.next;
     }
-
     /**
      *  翻转链表
      * **/
     private ListNode reverseNode(ListNode head){
 
-        if(head == null || head.next == null){
-            return head;
-        }
         ListNode resultNode = null;
         while(head != null){
-
             ListNode node = head;
-
             head = head.next;
             node.next = resultNode;
             resultNode = node;
@@ -102,7 +88,7 @@ public class Solution25 {
 
         ListNode listNode = ListNode.initListNode(new int[]{1,2,3,4,5,6,7,8,9});
 
-        ListNode resultNode = new Solution25().reverseKGroup(listNode,3);
+        ListNode resultNode = new Solution25_K个一组翻转链表().reverseKGroup(listNode,3);
 
         System.out.println(resultNode);
     }
