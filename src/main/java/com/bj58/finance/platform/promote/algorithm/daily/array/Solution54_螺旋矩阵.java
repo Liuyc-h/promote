@@ -31,83 +31,76 @@ import java.util.List;
  * 链接：https://leetcode-cn.com/problems/spiral-matrix
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * **/
-public class Solution54 {
+public class Solution54_螺旋矩阵 {
 
     /**
-     *  定义四个上下左右的节点，依次遍历
+     *  先定义上下左右四个
      * **/
     public List<Integer> spiralOrder(int[][] matrix) {
-
-        if(matrix == null || matrix.length <= 0){
-            return new ArrayList<>();
-        }
         //结果List
         List<Integer> resultList = new ArrayList<>();
-        //一维数组的个数
-        int length = matrix.length;
-        //一维数组的长度
-        int size = matrix[0].length;
-        //起始点
-        int start = 0;
-        //结束点
-        int end = length - 1;
-        //左起点
-        int left = 0;
-        //右起点
-        int right = size - 1;
-
+        if(matrix == null || matrix.length == 0){
+            return resultList;
+        }
+        //行数
+        int hLength = matrix.length;
+        //列数
+        int lLength = matrix[0].length;
+        //定义一个计数器
         int count = 0;
-
-        int i =0,j=0;
+        //左右
+        int right= lLength - 1;
+        int left = 0;
+        //上下
+        int up = 0;
+        int down = hLength - 1;
+        int i= 0,j =0;
         while(true){
-
 
             while(j <= right){
                 resultList.add(matrix[i][j]);
+                count++;
                 j++;
-                count ++;
             }
             j--;
-            start ++;
-            i = start;
-            if(count >= size * length ){
+            up ++;
+            if(count >= hLength * lLength){
                 break;
             }
-
-            while( i <= end){
+            i = up;
+            while(i <= down){
                 resultList.add(matrix[i][j]);
+                count++;
                 i++;
-                count ++;
             }
             i--;
             right --;
-            j = right;
-            if(count >= size * length ){
+            if(count >= hLength * lLength){
                 break;
             }
-
+            j = right;
             while(j >= left){
                 resultList.add(matrix[i][j]);
+                count++;
                 j--;
-                count ++;
             }
             j++;
-            end --;
-            i = end;
-            if(count >= size * length ){
+            down --;
+            if(count >= hLength * lLength){
                 break;
             }
-            while(i >= start){
+            i = down;
+            while(i >= up){
                 resultList.add(matrix[i][j]);
+                count++;
                 i--;
-                count ++;
             }
             i++;
             left ++;
-            j = left;
-            if(count >= size * length ){
+            if(count >= hLength * lLength){
                 break;
             }
+            j = left;
         }
         return resultList;
     }
@@ -115,7 +108,7 @@ public class Solution54 {
     public static void main(String[] args) {
         int[][] array = new int[][]{{1, 2, 3 },{ 4, 5, 6 },{7, 8, 9 }};
 
-        List<Integer> resultList = new Solution54().spiralOrder(array);
+        List<Integer> resultList = new Solution54_螺旋矩阵().spiralOrder(array);
 
         System.out.println(JSONObject.toJSONString(resultList));
     }
