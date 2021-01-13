@@ -1,14 +1,14 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 给定一个整数数组，判断是否存在重复元素。
  *
- * 如果任意一值在数组中出现至少两次，函数返回 true 。如果数组中每个元素都不相同，则返回 false 。
+ *  给定一个整数数组，判断是否存在重复元素。
+ *
+ * 如果存在一值在数组中出现至少两次，函数返回 true 。如果数组中每个元素都不相同，则返回 false 。
  *
  *  
  *
@@ -28,38 +28,30 @@ import java.util.Set;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/contains-duplicate
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
  * **/
-public class Solution217 {
+public class Solution217_存在重复元素 {
 
     public boolean containsDuplicate(int[] nums) {
-        if(nums == null || nums.length <= 1){
-            return false;
-        }
 
         Set<Integer> set = new HashSet<>();
-
         for(int i = 0; i < nums.length; i++){
+            if(set.contains(nums[i])){
+                return false;
+            }
             set.add(nums[i]);
         }
-        return set.size() == nums.length;
+        return true;
     }
 
-    /**
-     *
-     * **/
     public boolean containsDuplicate1(int[] nums) {
-        if(nums == null || nums.length <= 1){
-            return false;
-        }
-
         Arrays.sort(nums);
-
-        for(int i =0;i < nums.length - 1; i++){
-            if(nums[i] == nums[i + 1]){
+        int n = nums.length;
+        for (int i = 0; i < n - 1; i++) {
+            if (nums[i] == nums[i + 1]) {
                 return true;
             }
         }
         return false;
     }
-
 }

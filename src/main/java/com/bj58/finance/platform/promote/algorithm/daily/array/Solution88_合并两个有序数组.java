@@ -54,9 +54,7 @@ public class Solution88_合并两个有序数组 {
             }
             //slide2Index < 0,nums2拍完了，nums1直接赋值
             if(slide2Index < 0){
-                nums1[i] = nums1[slide1Index];
-                slide1Index --;
-                continue;
+                break;
             }
             //g根据大小排序
             if(nums1[slide1Index] > nums2[slide2Index]){
