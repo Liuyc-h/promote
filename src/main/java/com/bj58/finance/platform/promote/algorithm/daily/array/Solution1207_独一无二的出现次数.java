@@ -1,14 +1,10 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-/****
- *
- *
+/**
  *  给你一个整数数组 arr，请你帮忙统计数组中每个数的出现次数。
  *
  * 如果每个数的出现次数都是独一无二的，就返回 true；否则返回 false。
@@ -38,16 +34,20 @@ import java.util.Set;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/unique-number-of-occurrences
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- * */
-public class Solution1207 {
+ *
+ * ***/
+public class Solution1207_独一无二的出现次数 {
 
     public boolean uniqueOccurrences(int[] arr) {
+
         Map<Integer,Integer> map = new HashMap<>();
-        for(int i = 0 ; i < arr.length; i ++){
-            map.put(arr[i],map.getOrDefault(arr[i], 0) + 1);
+
+        for(int i =0; i< arr.length; i++){
+            int count = map.getOrDefault(arr[i],0);
+            count = count + 1;
+            map.put(arr[i],count);
         }
-        Set<Integer> keySet = map.keySet();
-        Set<Integer> valueSet = new HashSet<>(map.values());
-        return keySet.size() == valueSet.size();
+        return map.keySet().size() == new HashSet<>(map.values()).size();
+
     }
 }

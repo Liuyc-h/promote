@@ -1,11 +1,8 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- *
- *  在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。
+ *在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。
  *
  * 你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。
  *
@@ -51,78 +48,36 @@ import java.util.List;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/gas-station
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- * */
-public class Solution134 {
+ *
+ *
+ * ***/
+public class Solution134_加油站 {
 
-    //类似于暴力解法
     public int canCompleteCircuit(int[] gas, int[] cost) {
-
-        int length = gas.length;
-        //先找出来能启动得
-        List<Integer> list = new ArrayList<>();
-        for(int i =0; i< length; i++){
-            if(gas[i] >= cost[i]){
-                list.add(i);
-            }
-        }
-        if(list.size() == 0){
-            return -1;
-        }
-        for(int index : list){
-
-            int sum = 0;
-            for(int i = index; i< length; i++){
-                sum = sum + gas[i] - cost[i];
-                if(sum < 0){
-                    break;
-                }
-            }
-            if(sum < 0){
-                continue;
-            }
-            for(int i = 0; i < index; i++){
-                sum = sum + gas[i] - cost[i];
-                if(sum < 0){
-                    break;
-                }
-            }
-            if(sum >= 0){
-                return index;
-            }
-
-        }
-        return -1;
-    }
-
-    public int canCompleteCircuit1(int[] gas, int[] cost){
-        //开始点
+        //定义一个开始索引
         int startIndex = 0;
-        //额外耗费的总油量
-        int totalExtraCost = 0;
-        //从起始点出发的 额外耗油量
+        //总的额外耗油量，也就是环行一圈，总的耗油量 - 总的加油量
+        int totalExtra = 0;
+        //当前的耗油量 - 加油量
         int currStartExtra = 0;
-
-        for(int i =0; i < gas.length; i++){
-
-            int extraCost = cost[i] - gas[i];
-            //加到总的额外耗油量
-            totalExtraCost = totalExtraCost + extraCost;
-            //开始的额外耗油量
-            currStartExtra = currStartExtra + extraCost;
-            //如果额外耗油量大于0的话，证明不够了，重置开始节点和开始的额外耗油量
+        //遍历数组
+        for(int i = 0; i < gas.length; i++){
+            //当前节点的耗油量 - 加油量
+            int currExtra = cost[i] - gas[i];
+            //记录  总的耗油量 - 总的加油量
+            totalExtra = totalExtra + currExtra;
+            //记录从startIndex开始的  总的耗油量 - 总的加油量
+            currStartExtra = currStartExtra + currExtra;
+            //此时不够触发，所以进行重置参数
             if(currStartExtra > 0){
-                startIndex = i + 1;
                 currStartExtra = 0;
-                continue;
+                startIndex = i + 1;
             }
-
         }
-        //总的额外耗油量大于0，那就不可能达到了
-        if(totalExtraCost > 0){
+        if(totalExtra > 0){
             return -1;
-        }else{
-            return startIndex;
         }
+        return startIndex;
     }
 
     public static void main(String[] args) {
@@ -135,9 +90,7 @@ public class Solution134 {
         int[] gas = new int[]{5,1,2,3,4};
         int[] cost = new int[]{4,4,1,5,1};
 
-        System.out.println(new Solution134().canCompleteCircuit1(gas,cost));
+        System.out.println(new Solution134_加油站().canCompleteCircuit(gas,cost));
 
     }
-
-
 }
