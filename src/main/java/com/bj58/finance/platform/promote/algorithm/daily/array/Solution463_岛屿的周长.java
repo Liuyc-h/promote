@@ -1,7 +1,7 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
 /**
- *给定一个 row x col 的二维网格地图 grid ，其中：grid[i][j] = 1 表示陆地， grid[i][j] = 0 表示水域。
+ * 给定一个 row x col 的二维网格地图 grid ，其中：grid[i][j] = 1 表示陆地， grid[i][j] = 0 表示水域。
  *
  * 网格中的格子 水平和垂直 方向相连（对角线方向不相连）。整个网格被水完全包围，但其中恰好有一个岛屿（或者说，一个或多个表示陆地的格子相连组成的岛屿）。
  *
@@ -37,39 +37,43 @@ package com.bj58.finance.platform.promote.algorithm.daily.array;
  * 链接：https://leetcode-cn.com/problems/island-perimeter
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * **/
-public class Solution463 {
+public class Solution463_岛屿的周长 {
+
     public int islandPerimeter(int[][] grid) {
-        //纵向长度
-        int portaitLength = grid.length;
-        //横向长度
-        int crosswiseLength = grid[0].length;
+        //特殊处理
+        if(grid == null || grid.length == 0){
+            return 0;
+        }
+        //行
+        int row = grid.length;
+        //列
+        int column = grid[0].length;
         //周长
-        int ans = 0;
-        for(int i = 0; i < portaitLength; i++){
-            for(int j = 0; j < crosswiseLength; j++){
-                if(grid[i][j] != 1){
+        int girth = 0;
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < column; j++){
+                //分情况讨论,如果为0则跳出
+                if(grid[i][j] == 0){
                     continue;
                 }
-                //上
-                if( i == 0 || grid[ i - 1][j] != 1 ){
-                    ans = ans + 1;
-                }
-                //下
-                if(i == portaitLength - 1 || grid[i + 1][j] != 1){
-                    ans = ans + 1;
-                }
-                //左
+                //上面的如果为1
+               if(i == 0 || grid[i - 1][j] != 1){
+                   girth = girth + 1;
+               }
+               //下面的不为1，加1
+               if(i == row - 1 || grid[i + 1][j] != 1){
+                   girth = girth + 1;
+               }
+               //左边的不为1
                 if(j == 0 || grid[i][j - 1] != 1){
-                    ans = ans + 1;
+                    girth = girth + 1;
                 }
-                //右
-                if(j == crosswiseLength - 1 || grid[i][j + 1] != 1){
-                    ans = ans + 1;
+                //右边的不为1
+                if(j == column - 1 || grid[i ][j + 1] != 1){
+                    girth = girth + 1;
                 }
-
             }
         }
-        return ans;
-
+        return girth;
     }
 }

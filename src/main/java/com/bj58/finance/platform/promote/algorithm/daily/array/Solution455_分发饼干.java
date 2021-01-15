@@ -35,12 +35,14 @@ import java.util.Arrays;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/assign-cookies
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- *
- * ***/
-public class Solution455 {
+ * **/
+public class Solution455_分发饼干 {
 
     public int findContentChildren(int[] g, int[] s) {
-        //先对数据进行排序，最小分最小的
+        //特殊情况处理
+        if(g == null || s == null || g.length == 0 || s.length == 0){
+            return 0;
+        }
         Arrays.sort(g);
         Arrays.sort(s);
         //小孩子胃口集合
@@ -61,5 +63,13 @@ public class Solution455 {
             }
         }
         return resultCount;
+    }
+
+    public static void main(String[] args) {
+        int[] array1 = new int[]{10,9,8,7};
+        int[] array2 = new int[]{5,6,7,8};
+
+        System.out.println(new Solution455_分发饼干().findContentChildren(array1,array2));
+
     }
 }

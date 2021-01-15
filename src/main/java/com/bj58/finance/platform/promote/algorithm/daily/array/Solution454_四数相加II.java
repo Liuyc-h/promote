@@ -27,43 +27,42 @@ import java.util.Map;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/4sum-ii
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
  * **/
-public class Solution454 {
+public class Solution454_四数相加II {
 
     public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
 
-        if(A == null || B == null || C == null || D == null){
-            return 0;
-        }
+        Map<Integer,Integer> resultMap = new HashMap<>();
 
-        Map<Integer,Integer> abMap = new HashMap<>();
-        //数组长度
         int length = A.length;
-        for(int i = 0; i < length; i++){
+        for(int i =0; i< length; i++){
             for(int j =0; j < length; j++){
-                int sum = A[i] + B[j];
-                abMap.put(sum,abMap.getOrDefault(sum,0) + 1);
+                int result = A[i] + B[j];
+                Integer count = resultMap.getOrDefault(result,0) + 1;
+                resultMap.put(result,count);
             }
         }
-        int count = 0;
-        for(int i = 0; i< length; i++){
-            for(int j =0; j< length ; j++){
-                int sum = C[i] + D[j];
-                if(abMap.containsKey(-sum)){
-                    count = count + abMap.get(-sum);
-                }
+        int resultCount = 0;
+        for(int i =0; i< length; i++){
+            for(int j =0; j < length; j++){
+                int result = C[i] + D[j];
+                Integer count = resultMap.getOrDefault(-result,0);
+                resultCount = resultCount + count;
+            }
+        }
+        return resultCount;
 
-            }
-        }
-        return count;
     }
 
     public static void main(String[] args) {
-        int[] a = new int[]{1};
-        int[] b = new int[]{-1};
-        int[] c = new int[]{0};
-        int[] d = new int[]{1};
+        int[] a = new int[]{1,2};
+        int[] b = new int[]{-2,-1};
+        int[] c = new int[]{-1,2};
+        int[] d = new int[]{0,2};
 
-        System.out.println(new Solution454().fourSumCount(a, b, c, d));
+        System.out.println(new Solution454_四数相加II().fourSumCount(a,b,c,d));
+
+
     }
 }
