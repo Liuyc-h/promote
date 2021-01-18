@@ -1,15 +1,12 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
-/**
- *
- * 给出 R 行 C 列的矩阵，其中的单元格的整数坐标为 (r, c)，满足 0 <= r < R 且 0 <= c < C。
+/***
+ *  给出 R 行 C 列的矩阵，其中的单元格的整数坐标为 (r, c)，满足 0 <= r < R 且 0 <= c < C。
  *
  * 另外，我们在该矩阵中给出了一个坐标为 (r0, c0) 的单元格。
  *
@@ -34,74 +31,75 @@ import java.util.PriorityQueue;
  * 输出：[[1,2],[0,2],[1,1],[0,1],[1,0],[0,0]]
  * 解释：从 (r0, c0) 到其他单元格的距离为：[0,1,1,2,2,3]
  * 其他满足题目要求的答案也会被视为正确，例如 [[1,2],[1,1],[0,2],[1,0],[0,1],[0,0]]。
+ *  
+ *
+ * 提示：
+ *
+ * 1 <= R <= 100
+ * 1 <= C <= 100
+ * 0 <= r0 < R
+ * 0 <= c0 < C
  *
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/matrix-cells-in-distance-order
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
  * **/
-public class Solution1030 {
+public class Solution1030_距离顺序排列矩阵单元格 {
 
-    /**
-     *  桶排序
-     * **/
     public int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
-        int maxDist = Math.max(r0, R - 1 - r0) + Math.max(c0, C - 1 - c0);
-        List<List<int[]>> bucket = new ArrayList<List<int[]>>();
-        for (int i = 0; i <= maxDist; i++) {
-            bucket.add(new ArrayList<int[]>());
-        }
-
-        for (int i = 0; i < R; i++) {
-            for (int j = 0; j < C; j++) {
-                int d = dist(i, j, r0, c0);
-                bucket.get(d).add(new int[]{i, j});
-            }
-        }
-        int[][] ret = new int[R * C][];
-        int index = 0;
-        for (int i = 0; i <= maxDist; i++) {
-            for (int[] it : bucket.get(i)) {
-                ret[index++] = it;
-            }
-        }
-        return ret;
-    }
-
-    public int dist(int r1, int c1, int r2, int c2) {
-        return Math.abs(r1 - r2) + Math.abs(c1 - c2);
-    }
-
-    /**
-     *  优先级队列
-     * **/
-    public int[][] allCellsDistOrder1(int R, int C, int r0, int c0) {
 
         PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
-                //|r1 - r2| + |c1 - c2|
-                return  Math.abs(o1[0] - r0) + Math.abs(o1[1] - c0)
+                return Math.abs(o1[0] - r0) + Math.abs(o1[1] - c0)
                         - Math.abs(o2[0] - r0) - Math.abs(o2[1] - c0);
             }
         });
-
-        for(int i  =0; i< R; i++){
-            for(int j = 0; j < C; j++){
-                priorityQueue.offer(new int[]{i,j});
+        //
+        for(int i =0; i< R; i++){
+            for(int j = 0;j< C; j++){
+                priorityQueue.add(new int[]{i,j});
             }
         }
-        int length  = priorityQueue.size();
+        int length = priorityQueue.size();
         int[][] resultArray = new int[length][];
-        for(int i =0; i< length; i++){
+        for(int i = 0; i < length; i++){
             resultArray[i] = priorityQueue.poll();
         }
         return resultArray;
     }
 
-
     public static void main(String[] args) {
-        int[][] resultArray = new Solution1030().allCellsDistOrder(1,2,0,0);
+        int R = 1;
+        int C = 2;
+        int r0 = 0;
+        int c0 = 0;
+        System.out.println(new Solution1030_距离顺序排列矩阵单元格().allCellsDistOrder(R,C,r0,c0));
+    }
 
-        System.out.println(JSONObject.toJSONString(resultArray));
+
+    public int[][] allCellsDistOrder1(int R, int C, int r0, int c0){
+        //先找出最大值
+        int maxLength = Math.max(R-r0-1,r0) + Math.max(C-c0-1,c0);
+        List<List<int[]>> resultList = new ArrayList<>();
+        for(int i = 0; i<= maxLength; i++){
+            resultList.add(new ArrayList<>());
+        }
+        for(int i = 0; i< R; i++){
+            for(int j =0; j < C;j++){
+                int dist = Math.abs(i - r0) + Math.abs(j - c0);
+                List<int[]> result = resultList.get(dist);
+                result.add(new int[]{i,j});
+            }
+        }
+        int[][] ret = new int[R * C][];
+        int index = 0;
+        for (int i = 0; i <= maxLength; i++) {
+            for (int[] it : resultList.get(i)) {
+                ret[index++] = it;
+            }
+        }
+        return ret;
     }
 }

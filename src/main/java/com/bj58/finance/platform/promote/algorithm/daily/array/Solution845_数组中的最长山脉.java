@@ -1,5 +1,7 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
-/**
+
+
+/***
  * 我们把数组 A 中符合下列属性的任意连续子数组 B 称为 “山脉”：
  *
  * B.length >= 3
@@ -33,38 +35,41 @@ package com.bj58.finance.platform.promote.algorithm.daily.array;
  * 链接：https://leetcode-cn.com/problems/longest-mountain-in-array
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
- * */
-public class Solution845 {
+ * **/
+public class Solution845_数组中的最长山脉 {
 
-    public int longestMountain(int[] A){
-        int length = A.length;
+    public int longestMountain(int[] arr) {
+        //特殊处理
+        if(arr == null || arr.length < 3){
+            return 0;
+        }
+        //数组长度
+        int length = arr.length;
+        //结果
+        int result = 0;
+        for(int i = 1; i < length - 1;i++ ){
+            //此种情况出现山峰
+            if(arr[i] > arr[i -1] && arr[i] > arr[i+1]){
 
-        int mountainSize = 0;
-
-        for(int i =0; i < length - 1;i++){
-
-            if(i > 0 && A[i] > A[i-1] && A[i] > A[i + 1]){
-                //往左遍历的开始点
                 int left = i - 1;
-                //往右遍历的开始点
                 int right = i + 1;
-                //往左遍历
-                while(left > 0 && A[left] > A[left - 1]){
+
+                while(left > 0 && arr[left] > arr[left - 1]){
                     left --;
                 }
-                //往右遍历
-                while(right < length - 1 && A[right] > A[right + 1]){
+                while(right < length - 1 && arr[right] > arr[right + 1]){
                     right ++;
                 }
-                mountainSize = Math.max(mountainSize,right - left + 1);
+                i = right ;
+                result = Math.max(result,right - left + 1);
             }
         }
-        return mountainSize;
+        return result;
     }
 
     public static void main(String[] args) {
         int[] array = new int[]{2,1,4,7,3,2,5};
 
-        System.out.println(new Solution845().longestMountain(array));
+        System.out.println(new Solution845_数组中的最长山脉().longestMountain(array));
     }
 }

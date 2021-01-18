@@ -1,7 +1,7 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
 /**
- *在柠檬水摊上，每一杯柠檬水的售价为 5 美元。
+ *  在柠檬水摊上，每一杯柠檬水的售价为 5 美元。
  *
  * 顾客排队购买你的产品，（按账单 bills 支付的顺序）一次购买一杯。
  *
@@ -37,56 +37,53 @@ package com.bj58.finance.platform.promote.algorithm.daily.array;
  * 对于接下来的 2 位顾客，我们收取一张 10 美元的钞票，然后返还 5 美元。
  * 对于最后一位顾客，我们无法退回 15 美元，因为我们现在只有两张 10 美元的钞票。
  * 由于不是每位顾客都得到了正确的找零，所以答案是 false。
+ *  
+ *
+ * 提示：
+ *
+ * 0 <= bills.length <= 10000
+ * bills[i] 不是 5 就是 10 或是 20 
  *
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/lemonade-change
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
  * **/
-public class Solution860 {
+public class Solution860_柠檬水找零 {
 
     public boolean lemonadeChange(int[] bills) {
-
-        if(bills == null || bills.length == 0 || bills[0] > 5){
-            return false;
+        if(bills == null || bills.length == 0){
+            return true;
         }
-        //5美元的数量
+        //五元的数量
         int fiveCount = 0;
-        //10美元的数量
+        //10元的数量
         int tenCount = 0;
-        for(int i =0; i < bills.length; i++){
-
+        for(int i =0; i< bills.length; i++){
+            //是5直接收下
             if(bills[i] == 5){
                 fiveCount ++;
                 continue;
             }
-            //有10块的而5块的少于等于0的话就失败了
-            if(bills[i] == 10 && fiveCount <= 0){
-                return false;
-            }
+            //是10找5即可
             if(bills[i] == 10){
-                tenCount ++;
+                if(fiveCount <=  0){
+                    return false;
+                }
                 fiveCount --;
+                tenCount ++;
                 continue;
             }
-            if(tenCount > 0 && fiveCount > 0){
-                tenCount --;
+            if(fiveCount > 0 && tenCount > 0){
                 fiveCount --;
+                tenCount --;
             }else if(fiveCount >= 3){
                 fiveCount = fiveCount - 3;
             }else{
                 return false;
             }
+
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-
-
-        int[] bills = new int[]{5,5,10,10,20};
-
-        System.out.println(new Solution860().lemonadeChange(bills));
-
     }
 }

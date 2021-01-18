@@ -1,6 +1,5 @@
 package com.bj58.finance.platform.promote.algorithm.daily.tree;
 
-import com.alibaba.fastjson.JSONObject;
 import com.bj58.finance.platform.promote.algorithm.struct.TreeNode;
 
 import java.util.ArrayList;
@@ -44,68 +43,57 @@ import java.util.List;
  * -100 <= Node.val <= 100
  *  
  *
+ * 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+ *
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
  * **/
-public class Solution94 {
+public class Solution94_二叉树的中序遍历 {
     /**
-     *  中序遍历  左中右,用递归 的方法
+     *  前中后，先用递归
      * **/
     public List<Integer> inorderTraversal(TreeNode root) {
-
-        List<Integer> resultList = new ArrayList<>();
-
-        dfs(root,resultList);
-        return resultList;
-    }
-
-    private void dfs(TreeNode treeNode,List<Integer> resultList){
-        if(treeNode == null){
-            return;
-        }
-        dfs(treeNode.left,resultList);
-        resultList.add(treeNode.val);
-        dfs(treeNode.right,resultList);
-    }
-
-    /**
-     *  用迭代的方法来做，手动维护一个栈
-     * **/
-    public List<Integer> inorderTraversal1(TreeNode root){
-
+        //结果List
         List<Integer> resultList = new ArrayList<>();
         if(root == null){
             return resultList;
         }
-        //维护一个栈
-        Deque<TreeNode> deque = new LinkedList<>();
-        TreeNode flowNode = root;
-        //
-        while(!deque.isEmpty() || flowNode != null){
+        dfs(resultList,root);
+        return resultList;
+    }
+    private void dfs(List<Integer> resultList,TreeNode root){
+        if(root == null){
+            return;
+        }
+        dfs(resultList,root.left);
+        resultList.add(root.val);
+        dfs(resultList,root.right);
+    }
 
-            while(flowNode != null){
-                deque.push(flowNode);
-                flowNode= flowNode.left;
+
+    public List<Integer> inorderTraversal1(TreeNode root){
+        //result
+        List<Integer> resultList = new ArrayList<>();
+        if(root == null){
+            return resultList;
+        }
+        //定义一个栈
+        Deque<TreeNode> deque = new LinkedList<>();
+        //流转树节点
+        TreeNode flow = root;
+        while(!deque.isEmpty() || flow != null){
+
+            while(flow != null){
+                deque.push(flow);
+                flow = flow.left;
             }
-            flowNode = deque.poll();
-            resultList.add(flowNode.val);
-            flowNode = flowNode.right;
+            flow = deque.poll();
+            resultList.add(flow.val);
+            flow = flow.right;
         }
         return resultList;
-
     }
 
-
-
-    public static void main(String[] args) {
-
-        TreeNode root = new TreeNode(1);
-
-        root.left = new TreeNode(2);
-        root.right = new TreeNode(3);
-
-        System.out.println(JSONObject.toJSONString(new Solution94().inorderTraversal1(root)));
-    }
 }

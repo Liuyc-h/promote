@@ -1,12 +1,10 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-/**
- *  我们有一个由平面上的点组成的列表 points。需要从中找出 K 个距离原点 (0, 0) 最近的点。
+/***
+ * 我们有一个由平面上的点组成的列表 points。需要从中找出 K 个距离原点 (0, 0) 最近的点。
  *
  * （这里，平面上两点之间的距离是欧几里德距离。）
  *
@@ -39,18 +37,20 @@ import java.util.PriorityQueue;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/k-closest-points-to-origin
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
  * **/
-public class Solution973 {
+public class Solution973_最接近原点的K个点 {
 
-    public int[][] kClosest(int[][] points, int K){
+    public int[][] kClosest(int[][] points, int K) {
+
         PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
-                return o1[0] * o1[0] + o1[1] * o1[1] - o2[0] * o2[0] - o2[1] * o2[1];
+                return  o1[0] * o1[0] + o1[1] * o1[1] - o2[0] * o2[0] - o2[1] * o2[1];
             }
         });
 
-        for(int i =0 ; i< points.length; i++){
+        for(int i = 0; i < points.length; i++){
             priorityQueue.offer(points[i]);
         }
         int[][] resultArray = new int[K][];
@@ -58,11 +58,5 @@ public class Solution973 {
             resultArray[i] = priorityQueue.poll();
         }
         return resultArray;
-    }
-
-    public static void main(String[] args) {
-        int[][] array = new int[][]{{1,3},{-2,2}};
-
-        System.out.println(JSONObject.toJSONString(new Solution973().kClosest(array,1)));
     }
 }

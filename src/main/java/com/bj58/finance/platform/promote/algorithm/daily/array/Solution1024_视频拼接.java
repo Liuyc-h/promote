@@ -1,7 +1,7 @@
 package com.bj58.finance.platform.promote.algorithm.daily.array;
 
-/***
- *你将会获得一系列视频片段，这些片段来自于一项持续时长为 T 秒的体育赛事。这些片段可能有所重叠，也可能长度不一。
+/**
+ * 你将会获得一系列视频片段，这些片段来自于一项持续时长为 T 秒的体育赛事。这些片段可能有所重叠，也可能长度不一。
  *
  * 视频片段 clips[i] 都用区间进行表示：开始于 clips[i][0] 并于 clips[i][1] 结束。我们甚至可以对这些片段自由地再剪辑，例如片段 [0, 7] 可以剪切成 [0, 1] + [1, 3] + [3, 7] 三部分。
  *
@@ -48,35 +48,21 @@ package com.bj58.finance.platform.promote.algorithm.daily.array;
  * 链接：https://leetcode-cn.com/problems/video-stitching
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
- * */
-public class Solution1024 {
+ * **/
+public class Solution1024_视频拼接 {
 
-    /***
-     *  贪心算法
-     *  本题的思路
-     *
-     *  用一个数组记录 clip[0] < T 的集合中，clip[0] < T,则clip[1] >= T是成立的，则肯定能覆盖
-     *
-     *  以clip[0] 为索引下标，clip[1]的值为右边界所到的最远地方，
-     *  如果clip[0] 相等，则maxn[clip[0]]记录最大右边界
-     *
-     *  遍历这个maxn[i]
-     *
-     *
-     *
-     *
-     * ***/
     public int videoStitching(int[][] clips, int T) {
+        //先定义一个数组
         int[] maxn = new int[T];
-        //记录每个左端点最长的地方，如果有重复右端点就覆盖了，才想明白，哈哈哈哈哈
-        //索引记录第一个字段，值记录能达到最右边的最大右端点
+        //利用clip[0]作为索引下标，clip[1]作为值，记录
+        //能达到右边得值
         for(int[] clip : clips){
             if(clip[0] < T){
                 maxn[clip[0]] = Math.max(maxn[clip[0]],clip[1]);
             }
         }
         //最左边的区间
-        int last = 0;
+        int currRange = 0;
         //上一个区间
         int pre = 0;
         //所经历的区间数
@@ -84,19 +70,17 @@ public class Solution1024 {
 
         for(int i = 0; i < T; i++){
             //从0开始遍历，比较last和maxn[i] 的最大值
-            last = Math.max(last,maxn[i]);
+            currRange = Math.max(currRange,maxn[i]);
             //去调中间没有的节点，节点缺失的地方
-            if(i == last){
+            if(i == currRange){
                 return -1;
             }
             //i = pre 表示当前已经取到了最优的一个片段，该遍历下一个了
             if (i == pre) {
                 num ++;
-                pre = last;
+                pre = currRange;
             }
         }
         return num;
     }
-
-
 }
