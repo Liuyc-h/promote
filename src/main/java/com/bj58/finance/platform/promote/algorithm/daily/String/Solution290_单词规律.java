@@ -1,10 +1,12 @@
 package com.bj58.finance.platform.promote.algorithm.daily.String;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * 给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。
+ *  给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。
  *
  * 这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串 str 中的每个非空单词之间存在着双向连接的对应规律。
  *
@@ -32,44 +34,40 @@ import java.util.Set;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
  * **/
-public class Solution290 {
+public class Solution290_单词规律 {
 
     public boolean wordPattern(String pattern, String s) {
-        if(pattern == null || s == null){
+        //特殊情况处理
+        if(pattern == null || s == null || pattern.length() == 0 || s.length() == 0){
             return false;
         }
-        String[] sArray = s.split(" ");
-        if(pattern.length() != sArray.length){
+        String[] strings = s.split(" ");
+        if(strings.length != pattern.length()){
             return false;
         }
-        //
-        String[] flowArray = new String[26];
-        Set<String> set = new HashSet<>();
-        for(int i =0; i < pattern.length(); i++){
-            int index = pattern.charAt(i) - 'a';
-            set.add(sArray[i]);
-            if(flowArray[index] == null){
-                flowArray[index] = sArray[i];
-            }else if(!flowArray[index].equals(sArray[i])){
+        Map<Character,String> mapping = new HashMap<>();
+        Set<String> valueSet = new HashSet<>();
+        for(int i = 0; i< pattern.length(); i++){
+            //如果已经包含了，判断映射关系成不成立
+            if(mapping.containsKey(pattern.charAt(i))){
+                if(!mapping.get(pattern.charAt(i)).equals(strings[i])){
+                    return false;
+                }
+                continue;
+            }
+            if(valueSet.contains(strings[i])){
                 return false;
             }
+            mapping.put(pattern.charAt(i),strings[i]);
+            valueSet.add(strings[i]);
         }
-        int count = 0;
-        for(int i = 0; i < flowArray.length; i++){
-            if(flowArray[i] != null){
-                count ++;
-            }
-        }
-        return count == set.size();
+        return true;
     }
 
     public static void main(String[] args) {
-
         String pattern = "abba";
+        String str = "dog cat cat dog";
 
-        String s = "cat dog dog cat";
-
-        System.out.println(new Solution290().wordPattern(pattern,s));
-
+        System.out.println(new Solution290_单词规律().wordPattern(pattern,str));
     }
 }
