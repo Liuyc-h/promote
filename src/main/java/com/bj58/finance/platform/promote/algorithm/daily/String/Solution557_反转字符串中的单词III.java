@@ -1,7 +1,7 @@
 package com.bj58.finance.platform.promote.algorithm.daily.String;
 
 /**
- * 给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
+ *  给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。
  *
  *  
  *
@@ -26,39 +26,34 @@ public class Solution557_反转字符串中的单词III {
         if(s == null || s.length() <= 1){
             return s;
         }
-        //字符集合
-        char[] array = s.toCharArray();
-        //开始索引
+        //数组长度
+        int length = s.length();
+        char[] sChar = s.toCharArray();
+        //开始结束索引
         int startIndex = 0;
-        //滑窗
-        int slideIndex = 0;
-        while(slideIndex < array.length){
-            if(' ' != array[slideIndex]){
-                slideIndex ++;
+        for(int i = 0; i < s.length();i++){
+            //不是空格就跳出
+            if(sChar[i] != ' '){
                 continue;
             }
-            int left = startIndex;
-            int right = slideIndex - 1;
-            while(left < right){
-                char temp = array[left];
-                array[left] = array[right];
-                array[right] = temp;
-                left ++;
-                right --;
-            }
-            slideIndex ++;
-            startIndex = slideIndex;
+            //翻转
+            reverseArray(sChar,startIndex,i - 1);
+            startIndex = i + 1;
         }
-        int left = startIndex;
-        int right = slideIndex - 1;
-        while(left < right){
-            char temp = array[left];
-            array[left] = array[right];
-            array[right] = temp;
-            left ++;
-            right --;
+        reverseArray(sChar,startIndex,length - 1);
+        return new String(sChar);
+    }
+
+    //翻转数组
+    private void reverseArray(char[] array,int start,int end){
+
+        while(start < end){
+            char temp = array[start];
+            array[start] = array[end];
+            array[end] = temp;
+            start ++;
+            end --;
         }
-        return new String(array);
     }
 
     public static void main(String[] args) {
