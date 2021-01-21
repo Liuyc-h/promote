@@ -1,7 +1,8 @@
 package com.bj58.finance.platform.promote.algorithm.daily.String;
 
-/***
- *实现函数 ToLowerCase()，该函数接收一个字符串参数 str，并将该字符串中的大写字母转换成小写字母，之后返回新的字符串。
+/**
+ *
+ * 实现函数 ToLowerCase()，该函数接收一个字符串参数 str，并将该字符串中的大写字母转换成小写字母，之后返回新的字符串。
  *
  *  
  *
@@ -21,30 +22,21 @@ package com.bj58.finance.platform.promote.algorithm.daily.String;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/to-lower-case
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- *
- *
  * **/
 public class Solution709_转换成小写字母 {
 
     public String toLowerCase(String str) {
-        if(str == null || str.length() <= 0){
+        if(str == null || str.length() == 0){
             return str;
         }
-        char[] charArray = str.toCharArray();
-        for(int i =0; i< charArray.length; i++){
-            int curr = charArray[i];
-            if(curr >= 65 && curr <= 90){
-                charArray[i] = (char) (curr + 32);
+        char[] strArray = str.toCharArray();
+
+        for(int i = 0; i < str.length(); i++){
+            if(Character.isLetter(strArray[i])){
+                strArray[i] = Character.toLowerCase(strArray[i]);
             }
         }
-        return new String(charArray);
-    }
+        return new String(strArray);
 
-    public static void main(String[] args) {
-        System.out.println((int)'a');
-
-        System.out.println((int)'z');
-        System.out.println((int)'A');
-        System.out.println((int)'Z');
     }
 }

@@ -1,13 +1,10 @@
 package com.bj58.finance.platform.promote.algorithm.daily.String;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- *  在一个由小写字母构成的字符串 s 中，包含由一些连续的相同字符所构成的分组。
+ * 在一个由小写字母构成的字符串 s 中，包含由一些连续的相同字符所构成的分组。
  *
  * 例如，在字符串 s = "abbxxxxzyy" 中，就含有 "a", "bb", "xxxx", "z" 和 "yy" 这样的一些分组。
  *
@@ -47,9 +44,8 @@ import java.util.List;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/positions-of-large-groups
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
- *
  * **/
-public class Solution830 {
+public class Solution830_较大分组的位置 {
 
     public List<List<Integer>> largeGroupPositions(String s) {
 
@@ -57,32 +53,41 @@ public class Solution830 {
         if(s == null || s.length() < 3){
             return resultList;
         }
+        //起始索引，结束索引
         int startIndex = 0;
         int endIndex = 0;
-        char compare = s.charAt(0);
-        for(int i =1; i< s.length(); i++){
-            if(s.charAt(i) == compare){
-                endIndex = i;
-                continue;
+        //一个流转索引
+        int flowIndex = 0;
+        while(flowIndex < s.length()){
+            //
+            if(s.charAt(flowIndex) ==  s.charAt(startIndex)){
+               endIndex = flowIndex;
+               flowIndex = flowIndex + 1;
+               continue;
             }
-            int length = endIndex - startIndex + 1;
-            if(length >= 3){
-                List<Integer> result = Arrays.asList(startIndex,endIndex);
+            if(endIndex - startIndex + 1 >= 3){
+                List<Integer> result = new ArrayList<>();
+                result.add(startIndex);
+                result.add(endIndex);
                 resultList.add(result);
             }
-            startIndex = i;
-            endIndex = i;
-            compare = s.charAt(i);
+            startIndex = flowIndex;
+            endIndex = flowIndex;
         }
         if(endIndex - startIndex + 1 >= 3){
-            resultList.add(Arrays.asList(startIndex,endIndex));
+            List<Integer> result = new ArrayList<>();
+            result.add(startIndex);
+            result.add(endIndex);
+            resultList.add(result);
         }
         return resultList;
     }
 
     public static void main(String[] args) {
-        String s = "aaa";
 
-        System.out.println(JSONObject.toJSONString(new Solution830().largeGroupPositions(s)));
+        String s = "abcdddeeeeaabbbcd";
+
+        System.out.println(new Solution830_较大分组的位置().largeGroupPositions(s));
+
     }
 }
