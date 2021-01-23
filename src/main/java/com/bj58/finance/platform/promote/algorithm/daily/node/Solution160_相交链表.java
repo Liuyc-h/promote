@@ -1,9 +1,10 @@
 package com.bj58.finance.platform.promote.algorithm.daily.node;
 
+import com.bj58.finance.platform.promote.algorithm.enterprise.DD.LRUCache;
 import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
 
-/**
- *  编写一个程序，找到两个单链表相交的起始节点。
+/***
+ * 编写一个程序，找到两个单链表相交的起始节点。
  *
  * 如下面的两个链表：
  *
@@ -39,76 +40,64 @@ import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
  * 输出：null
  * 输入解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。
  * 解释：这两个链表不相交，因此返回 null。
+ *  
+ *
+ * 注意：
+ *
+ * 如果两个链表没有交点，返回 null.
+ * 在返回结果后，两个链表仍须保持原有的结构。
+ * 可假定整个链表结构中没有循环。
+ * 程序尽量满足 O(n) 时间复杂度，且仅用 O(1) 内存。
  *
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/intersection-of-two-linked-lists
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
  * **/
-public class Solution160 {
+public class Solution160_相交链表 {
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if(headA == null || headB == null){
+        //特殊情况处理
+        if(headA == null || headB == null ){
             return null;
         }
-        //headA的长度
-        int countA = 0;
-        //headB的长度
-        int countB = 0;
-        //headA的末节点
-        ListNode endANode = null;
-        //headB的末节点
-        ListNode endBNode = null;
-
-        ListNode nodeA = headA;
-        ListNode nodeB = headB;
-        while(nodeA != null || nodeB != null){
-
-            if(nodeA != null && nodeA.next == null){
-                endANode = nodeA;
+        //定义一个flow
+        ListNode flowHeadA = headA;
+        ListNode flowHeadB = headB;
+        //是否交换得标志
+        Boolean aFlag  = false;
+        Boolean bFlag = false;
+        while(flowHeadA != null || flowHeadB != null){
+            //如果为空，赋值为另一个列表
+            if( !aFlag && flowHeadA == null){
+                flowHeadA = headB;
+                aFlag = true;
             }
-            if(nodeB != null && nodeB.next == null){
-                endBNode = nodeB;
+            if(!bFlag && flowHeadB == null){
+                flowHeadB = headA;
+                bFlag = true;
             }
-            if(nodeA != null){
-                countA ++;
-                nodeA = nodeA.next;
+            if((flowHeadB != null || flowHeadB != null) && flowHeadA ==  flowHeadB){
+                return flowHeadA;
             }
-            if(nodeB != null){
-                countB ++;
-                nodeB = nodeB.next;
+            if(flowHeadA != null){
+                flowHeadA = flowHeadA.next;
             }
-        }
-        if(endANode != endBNode){
-            return null;
-        }
-        if(countA >= countB){
-            return this.getInterSectNode(headA,headB,countA - countB);
-        }
-        return this.getInterSectNode(headB,headA,countB - countA);
-
-    }
-    /**
-     *  获取相交节点
-     * **/
-    private ListNode getInterSectNode(ListNode first,ListNode second,int count){
-
-        ListNode firstNode = first;
-        for(int i = 0; i< count; i++ ){
-            firstNode = firstNode.next;
-        }
-
-        ListNode secondNode = second;
-
-        while(firstNode != null){
-            if(firstNode == secondNode){
-                return firstNode;
+            if(flowHeadB != null){
+                flowHeadB = flowHeadB.next;
             }
-            firstNode = firstNode.next;
-            secondNode = secondNode.next;
         }
         return null;
     }
 
+    public static void main(String[] args) {
+
+        ListNode node1 = ListNode.initListNode(new int[]{2,6,4});
+        ListNode node2 = ListNode.initListNode(new int[]{1,5});
+
+        System.out.println(new Solution160_相交链表().getIntersectionNode(node1,node2));
+
+    }
 
     public ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
 
