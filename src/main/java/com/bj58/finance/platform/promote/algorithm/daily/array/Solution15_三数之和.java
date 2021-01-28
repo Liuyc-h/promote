@@ -52,9 +52,13 @@ public class Solution15_三数之和 {
         }
         //先进行排序
         Arrays.sort(nums);
+        //第一个数大于0，就不需要往后判断了
+        if(nums[0] > 0){
+            return resultList;
+        }
 
         for(int i =0; i < nums.length - 2 ; i++){
-            //当i 》 0，并且nums[i] == nums[i - 1]，则两者得到的肯定有重复的，
+            //当i > 0，并且nums[i] == nums[i - 1]，则两者得到的肯定有重复的，
             //所以此时跳出
             if(i > 0 && nums[i] == nums[i - 1]){
                 continue;

@@ -2,52 +2,48 @@ package com.bj58.finance.platform.promote.utils;
 
 import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class Solution {
 
-    public ListNode reverseBetween(ListNode head, int m, int n) {
-        if(head == null || head.next == null){
-            return head;
+    public boolean isValid(String s) {
+        if(s == null || s.length() == 0){
+            return true;
         }
-        //结果节点
-        ListNode resultNode = new ListNode(0);
-        //结果流转节点
-        ListNode flowResultNode = resultNode;
-        //head flow节点
-        ListNode flowHead = head;
-        //
-        ListNode reverseNodeFirst = null;
-        //
-        ListNode reverseNode = null;
-        //计数器
-        int count = 0;
 
-        while(flowHead != null){
-            count ++;
-            if(count < m || count > n){
-                ListNode node =  flowHead;
-                flowHead = flowHead.next;
-                //结果链表赋值
-                flowResultNode.next = node;
-                flowResultNode = flowResultNode.next;
-                flowResultNode.next = null;
+        Deque<Character> deque = new LinkedList<>();
+        int length = s.length();
+        for(int i = 0; i< length; i++){
+            if(deque.isEmpty()){
+               deque.push(s.charAt(i));
+               continue;
+            }
+            if(isValue(deque,s.charAt(i))){
+                deque.pop();
             }else{
-                ListNode node = flowHead;
-                flowHead = flowHead.next;
-
-                node.next = reverseNode;
-                reverseNode = node;
-                reverseNodeFirst = reverseNodeFirst == null ?
-                        reverseNode : reverseNodeFirst;
-            }
-            if(count == n){
-                flowResultNode.next = reverseNode;
-                flowResultNode = reverseNodeFirst;
+                deque.push(s.charAt(i));
             }
         }
-        return resultNode.next;
+        return deque.isEmpty() ? true : false;
+    }
+    //
+    private Boolean isValue(Deque<Character> deque,char curr){
+        //()[]{}
+        if(curr == ')' && deque.peek() == '('){
+            return true;
+        }
+        if(curr == ']' && deque.peek() == '['){
+            return true;
+        }
+        if(curr == '}' && deque.peek() == '{'){
+            return true;
+        }
+        return false;
     }
     public static void main(String[] args) {
-        ListNode node = ListNode.initListNode(new int[]{1,2,6,3,4,5,6});
-        System.out.println(new Solution().reverseBetween(node,2,6));
+        String s = "([)]";
+
+        System.out.println(new Solution().isValid(s));
     }
 }
