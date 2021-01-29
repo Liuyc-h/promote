@@ -2,9 +2,7 @@ package com.bj58.finance.platform.promote.geek.first;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.function.Function;
@@ -104,6 +102,15 @@ public class ConcurrentHashMapExample {
                 freqs.computeIfAbsent(key,k->new LongAdder()).increment();
 
 //                freqs.putIfAbsent()
+                Map<String,String> map = new HashMap<>();
+                // value是一个Function接口，value ！= null
+                //如果map.get(key)有值，则返回旧值
+                //如果没值，则进行put操作并返回value.apply()
+                map.computeIfAbsent(key,k -> "liuyc");
+                //value值就是map里面得value，
+                //如果map.get(key)有值，返回旧值
+                //如果map.get(key)没有值，则进行put操作，返回null
+                map.putIfAbsent(key,"liuyc");
 
             });
         });

@@ -1,5 +1,6 @@
 package com.bj58.finance.platform.promote.tuling.spring;
 
+import com.bj58.finance.platform.promote.config.JavaConfig;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -19,14 +20,16 @@ public class ApplicationContextExample {
 
     public static void main(String[] args) {
 
-        ClassPathResource resource = new ClassPathResource("bean.xml"); // <1>
+//        ClassPathResource resource = new ClassPathResource("bean.xml"); // <1>
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext.xml");
+
+        AnnotationConfigApplicationContext context1 = new AnnotationConfigApplicationContext(JavaConfig.class);
         DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); // <2>
 
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory); // <3>
 
-        reader.loadBeanDefinitions(resource);
+//        reader.loadBeanDefinitions(resource);
 
         BeanPostProcessor beanPostProcessor = new BeanPostProcessor() {
             @Override
