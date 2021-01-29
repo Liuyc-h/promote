@@ -1,5 +1,6 @@
 package com.bj58.finance.platform.promote.tuling.spring;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -26,6 +27,18 @@ public class ApplicationContextExample {
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory); // <3>
 
         reader.loadBeanDefinitions(resource);
+
+        BeanPostProcessor beanPostProcessor = new BeanPostProcessor() {
+            @Override
+            public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+                return null;
+            }
+
+            @Override
+            public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+                return null;
+            }
+        };
 
 
 

@@ -7,43 +7,29 @@ import java.util.LinkedList;
 
 public class Solution {
 
-    public boolean isValid(String s) {
-        if(s == null || s.length() == 0){
-            return true;
-        }
+    public int searchInsert(int[] nums, int target) {
 
-        Deque<Character> deque = new LinkedList<>();
-        int length = s.length();
-        for(int i = 0; i< length; i++){
-            if(deque.isEmpty()){
-               deque.push(s.charAt(i));
-               continue;
-            }
-            if(isValue(deque,s.charAt(i))){
-                deque.pop();
+        int left = 0;
+        int right = nums.length - 1;
+
+        while(left <= right){
+            int middle = (left + right) / 2;
+
+            if(nums[middle] == target){
+                return middle;
+            }else if(nums[middle] > target){
+                right = middle - 1;
             }else{
-                deque.push(s.charAt(i));
+                left = middle + 1;
             }
         }
-        return deque.isEmpty() ? true : false;
-    }
-    //
-    private Boolean isValue(Deque<Character> deque,char curr){
-        //()[]{}
-        if(curr == ')' && deque.peek() == '('){
-            return true;
-        }
-        if(curr == ']' && deque.peek() == '['){
-            return true;
-        }
-        if(curr == '}' && deque.peek() == '{'){
-            return true;
-        }
-        return false;
+        return left;
     }
     public static void main(String[] args) {
-        String s = "([)]";
 
-        System.out.println(new Solution().isValid(s));
+        int[] array = new int[]{1,3,5,6};
+
+        System.out.println(new Solution().searchInsert(array,7));
+
     }
 }
