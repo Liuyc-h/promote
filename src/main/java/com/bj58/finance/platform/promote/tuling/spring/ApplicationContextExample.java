@@ -25,23 +25,23 @@ public class ApplicationContextExample {
 //        ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext.xml");
 
         AnnotationConfigApplicationContext context1 = new AnnotationConfigApplicationContext(JavaConfig.class);
-        DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); // <2>
+//        DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); // <2>
 
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory); // <3>
+//        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory); // <3>
 
 //        reader.loadBeanDefinitions(resource);
 
-        BeanPostProcessor beanPostProcessor = new BeanPostProcessor() {
-            @Override
-            public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-                return null;
-            }
-
-            @Override
-            public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-                return null;
-            }
-        };
+//        BeanPostProcessor beanPostProcessor = new BeanPostProcessor() {
+//            @Override
+//            public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+//                return null;
+//            }
+//
+//            @Override
+//            public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+//                return null;
+//            }
+//        };
 
 
 
