@@ -13,6 +13,7 @@ import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
+import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -25,6 +26,8 @@ public class ApplicationContextExample {
 //        ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext.xml");
 
         AnnotationConfigApplicationContext context1 = new AnnotationConfigApplicationContext(JavaConfig.class);
+
+//        ConfigurationClassPostProcessor
 //        DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); // <2>
 
 //        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory); // <3>
