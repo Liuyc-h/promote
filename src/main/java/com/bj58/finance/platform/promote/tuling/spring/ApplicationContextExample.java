@@ -21,11 +21,15 @@ public class ApplicationContextExample {
 
     public static void main(String[] args) {
 
+//        synchronized ()
+
 //        ClassPathResource resource = new ClassPathResource("bean.xml"); // <1>
 
 //        ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext.xml");
 
         AnnotationConfigApplicationContext context1 = new AnnotationConfigApplicationContext(JavaConfig.class);
+
+//        context1.getBean()
 
 //        ConfigurationClassPostProcessor
 //        DefaultListableBeanFactory factory = new DefaultListableBeanFactory(); // <2>

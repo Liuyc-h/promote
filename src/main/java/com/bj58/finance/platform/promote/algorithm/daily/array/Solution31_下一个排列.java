@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSONObject;
  * 链接：https://leetcode-cn.com/problems/next-permutation
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * **/
-public class Solution31_下一个排列 {
+public class      Solution31_下一个排列 {
 
     public void nextPermutation(int[] nums){
         if(nums == null || nums.length <= 1){
