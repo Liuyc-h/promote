@@ -37,6 +37,27 @@ public class SynchronizedTest {
      *      轻量级锁   hashcode记载在lock record里面
      *      重量级锁   hashcode记载在monitor里面
      *
+     *      自旋锁：
+     *      逃逸分析：分析对象是否
+     *      锁得粗化：
+     *         某些情况下，程序中会在一段代码块中频繁得对一个锁进行加锁解锁操作，这种事很耗费性能得。
+     *         锁粗化就是在一些情况下把多吧锁合为一把锁，以增加程序性能
+     *         例如：
+     *           Object object = new Object();
+     *           public void sys(){
+     *              Synchronized(object){
+     *                  ........
+     *              }
+     *              Synchronized(object){
+     *                      ........
+     *                  }
+     *
+     *           }
+     *      锁消除：
+     *         逃逸分析后将锁解决掉，是否会逃逸出当前得作用域，是否会被其他线程引用，是否会在方法中作为参数返回
+     *
+     *
+     *
      *
      *
      * **/
