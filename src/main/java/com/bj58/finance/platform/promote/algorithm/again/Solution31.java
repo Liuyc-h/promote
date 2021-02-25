@@ -1,7 +1,5 @@
 package com.bj58.finance.platform.promote.algorithm.again;
 
-import com.bj58.finance.platform.promote.utils.Solution;
-
 /**
  *  实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
  *

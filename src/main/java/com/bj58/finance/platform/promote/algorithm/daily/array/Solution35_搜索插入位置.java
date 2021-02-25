@@ -30,8 +30,6 @@ package com.bj58.finance.platform.promote.algorithm.daily.array;
 // Related Topics 数组 二分查找
 // 👍 802 👎 0
 
-import com.bj58.finance.platform.promote.utils.Solution;
-
 public class Solution35_搜索插入位置 {
 
     public int searchInsert(int[] nums, int target) {
