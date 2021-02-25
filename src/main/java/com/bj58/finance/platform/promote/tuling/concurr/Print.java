@@ -1,6 +1,6 @@
 package com.bj58.finance.platform.promote.tuling.concurr;
 
-import org.openjdk.jol.info.ClassLayout;
+//import org.openjdk.jol.info.ClassLayout;
 
 public class Print {
 
@@ -8,6 +8,6 @@ public class Print {
 
         Object o = new Object();
 
-        System.out.println(ClassLayout.parseInstance(o).toPrintable());
+//        System.out.println(ClassLayout.parseInstance(o).toPrintable());
     }
 }
