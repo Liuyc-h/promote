@@ -39,7 +39,7 @@ package com.bj58.finance.platform.promote.algorithm.daily.array;
  *
  *
  * **/
-public class Solution766 {
+public class Solution766_托普利茨矩阵 {
 
     public boolean isToeplitzMatrix(int[][] matrix) {
 
@@ -112,7 +112,7 @@ public class Solution766 {
     public static void main(String[] args) {
         int[][] array = new int[][]{{57,54},{84,57}};
 
-        System.out.println(new Solution766().isToeplitzMatrix(array));
+        System.out.println(new Solution766_托普利茨矩阵().isToeplitzMatrix(array));
     }
 
 
