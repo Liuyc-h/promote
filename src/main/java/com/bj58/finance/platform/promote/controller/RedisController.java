@@ -14,7 +14,11 @@ public class RedisController {
 
     @RequestMapping("setKey")
     public void set(){
-        redisTemplate.opsForValue().set("myKey","myValue");
-        System.out.println(redisTemplate.opsForValue().get("myKey"));
+
+        for(int i = 0; i < 10000; i ++){
+            redisTemplate.opsForValue().set("myKey" + i,"myValue" + i);
+        }
+
+//        System.out.println(redisTemplate.opsForValue().get("myKey"));
     }
 }
