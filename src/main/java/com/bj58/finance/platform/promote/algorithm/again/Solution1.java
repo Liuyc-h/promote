@@ -37,7 +37,5 @@ public class Solution1 {
             indexMap.put(nums[i],i);
         }
         return new int[]{};
-
-
     }
 }

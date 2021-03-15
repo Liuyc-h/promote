@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface TUserMapper {
 
     TUser findById(int id);
+
+    int insert(TUser user);
 }

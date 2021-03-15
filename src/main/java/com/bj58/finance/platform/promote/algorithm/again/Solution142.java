@@ -1,8 +1,6 @@
 package com.bj58.finance.platform.promote.algorithm.again;
 
 import com.bj58.finance.platform.promote.algorithm.struct.ListNode;
-import jdk.internal.org.objectweb.asm.util.CheckAnnotationAdapter;
-import jdk.nashorn.internal.ir.BreakableNode;
 
 /**
  * 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。

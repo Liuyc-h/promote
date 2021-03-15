@@ -13,4 +13,10 @@
         select * from t_user where id = #{id}
     </select>
 
+    <insert id="insert" parameterType="com.bj58.finance.platform.promote.db.pojo.TUser">
+        insert into T_User(userName,passWord,realName)
+        values(#{userName}, #{passWord},#{realName})
+    </insert>
+
+
 </mapper>
