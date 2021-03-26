@@ -89,6 +89,7 @@ public class Solution1669 {
 
         firstNode.next = list2;
         flowList2.next = secondNode.next.next;
+
         return resultNode.next;
     }
 }
