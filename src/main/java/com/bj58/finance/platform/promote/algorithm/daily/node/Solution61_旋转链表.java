@@ -30,6 +30,55 @@ import javax.swing.*;
  * **/
 public class Solution61_旋转链表 {
 
+
+
+    public ListNode rotateRight2(ListNode head, int k) {
+
+        if(head == null || head.next == null){
+            return head;
+        }
+        //找出链表得长度
+        int nodeCount = 0;
+        ListNode flowCountNode = head;
+        while(flowCountNode != null){
+            nodeCount ++;
+            flowCountNode = flowCountNode.next;
+        }
+
+        ListNode flowNode = head;
+        //实际要走得步数
+        int step = k % nodeCount;
+        if(step == 0){
+            return head;
+        }
+
+        ListNode nextHalfNode = null;
+        for(int i = 0; i < nodeCount - step - 1;i++){
+            flowNode = flowNode.next;
+        }
+        nextHalfNode = flowNode.next;
+        flowNode.next = null;
+        if(nextHalfNode == null){
+            return head;
+        }
+
+        ListNode resultNode = nextHalfNode;
+
+        ListNode flowResultNode = resultNode;
+        while(flowResultNode.next != null){
+            flowResultNode = flowResultNode.next;
+        }
+        flowResultNode.next = head;
+        return resultNode;
+
+
+
+
+
+    }
+
+
+
     public ListNode rotateRight(ListNode head, int k) {
         //特殊处理
         if(head == null || head.next == null  ){
@@ -88,7 +137,7 @@ public class Solution61_旋转链表 {
 
         ListNode node = ListNode.initListNode(new int[]{1,2,3,4,5});
 
-        System.out.println(new Solution61_旋转链表().rotateRight1(node,2));
+        System.out.println(new Solution61_旋转链表().rotateRight2(node,2));
     }
 
     /***

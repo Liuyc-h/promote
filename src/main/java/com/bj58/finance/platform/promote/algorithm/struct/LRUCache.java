@@ -49,6 +49,7 @@ public class LRUCache {
         if(keyNode == null){
             return -1;
         }
+        move2Head(keyNode);
         return keyNode.value;
     }
 
