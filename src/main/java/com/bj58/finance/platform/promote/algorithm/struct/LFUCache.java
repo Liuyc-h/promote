@@ -108,7 +108,6 @@ public class LFUCache {
             }
         }
     }
-
     public static void main(String[] args) {
         // cache=[] 将显示最后一次使用的顺序（最左边的元素是最近的）
         LFUCache lFUCache = new LFUCache(3);
