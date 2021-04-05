@@ -1,6 +1,7 @@
 package com.bj58.finance.platform.promote.tuling.spring;
 
 import com.bj58.finance.platform.promote.config.JavaConfig;
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -28,6 +29,8 @@ public class ApplicationContextExample {
 //        ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext.xml");
 
         AnnotationConfigApplicationContext context1 = new AnnotationConfigApplicationContext(JavaConfig.class);
+
+//        ProxyFactory
 
 //        context1.getBean()
 
